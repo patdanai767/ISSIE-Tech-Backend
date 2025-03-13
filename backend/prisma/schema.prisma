@@ -18,7 +18,7 @@ model Rider {
   firstName    String
   lastName     String
   email        String     @unique
-  licensePlate String
+  licensePlate String     @unique
   phoneNumber  String     @unique
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt

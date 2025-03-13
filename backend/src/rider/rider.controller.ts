@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { RiderService } from './rider.service';
 import { Location, Rider } from '@prisma/client';
@@ -35,6 +36,23 @@ export class RiderController {
   })
   async getRiders(): Promise<Rider[]> {
     return this.riderService.getRiders();
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: RiderResponse,
+    description: 'Get rider',
+    isArray: true,
+  })
+  @Get('/search')
+  async searchRiders(
+    @Query('latitude') latitude: string,
+    @Query('longtitude') longtitude: string,
+  ): Promise<Rider[]> {
+    return this.riderService.searchRiders(
+      parseFloat(latitude),
+      parseFloat(longtitude),
+    );
   }
 
   @Get('/:id')

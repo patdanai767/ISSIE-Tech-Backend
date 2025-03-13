@@ -10,6 +10,35 @@ export class RiderService {
     return this.prismaService.rider.findMany();
   }
 
+  async searchRiders(latitude: number, longtitude: number): Promise<Rider[]> {
+    const radius = 5;
+    const latDiff = radius / 111;
+    const location = this.prismaService.location.findMany({
+      where: {
+        AND: [
+          {
+            latitude: {
+              gte: latitude - latDiff,
+              lte: latitude + latDiff,
+            },
+          },
+          {
+            longtitude: {
+              gte: longtitude - latDiff / Math.cos(latitude * (Math.PI / 180)),
+              lte: longtitude + latDiff / Math.cos(latitude * (Math.PI / 180)),
+            },
+          },
+        ],
+      },
+    });
+    const riderIds = (await location).map(
+      (riderLocation) => riderLocation.riderId,
+    );
+    return this.prismaService.rider.findMany({
+      where: { id: { in: riderIds } },
+    });
+  }
+
   async getRider(
     riderUniqueInput: Prisma.RiderWhereUniqueInput,
   ): Promise<Rider | null> {

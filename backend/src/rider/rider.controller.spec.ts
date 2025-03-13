@@ -46,6 +46,7 @@ describe('RiderController', () => {
     getRiders: jest.fn().mockResolvedValue([RiderStub]),
     getRider: jest.fn().mockResolvedValue(RiderStub),
     getRiderWithLocations: jest.fn().mockResolvedValue(RiderLocationStub),
+    searchRiders: jest.fn().mockResolvedValue([RiderStub]),
     createRider: jest.fn().mockResolvedValue(RiderStub),
     updateRider: jest.fn().mockResolvedValue(RiderStub),
     deleteRider: jest.fn().mockResolvedValue(RiderStub),
@@ -94,6 +95,15 @@ describe('RiderController', () => {
       const result = await controller.getRiders();
 
       expect(service.getRiders).toHaveBeenCalledWith();
+      expect(result).toEqual([RiderStub]);
+    });
+  });
+
+  describe('searchRiders', () => {
+    it('should return riders', async () => {
+      const result = await controller.searchRiders('45', '-32');
+
+      expect(service.searchRiders).toHaveBeenCalledWith(45.0, -32.0);
       expect(result).toEqual([RiderStub]);
     });
   });

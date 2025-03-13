@@ -46,6 +46,9 @@ describe('RiderService', () => {
       update: jest.fn().mockResolvedValue(RiderStub),
       delete: jest.fn().mockResolvedValue(RiderStub),
     },
+    location: {
+      findMany: jest.fn().mockResolvedValue([LocationStub]),
+    },
   };
 
   beforeEach(async () => {
@@ -75,6 +78,17 @@ describe('RiderService', () => {
       const result = await service.getRiders();
 
       expect(prismaService.rider.findMany).toHaveBeenCalledWith();
+      expect(result).toEqual([RiderStub]);
+    });
+  });
+
+  describe('searchRiders', () => {
+    it('should return Riders', async () => {
+      const result = await service.searchRiders(-32, 45);
+
+      expect(prismaService.rider.findMany).toHaveBeenCalledWith({
+        where: { id: { in: [undefined] } },
+      });
       expect(result).toEqual([RiderStub]);
     });
   });

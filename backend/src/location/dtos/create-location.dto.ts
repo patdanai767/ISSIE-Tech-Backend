@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, Max, Min } from 'class-validator';
 
 export class CreateLocationDto {
   @ApiProperty({
@@ -8,6 +9,7 @@ export class CreateLocationDto {
     example: '0',
   })
   @IsNumber()
+  @Type(() => Number)
   @IsNotEmpty()
   latitude: number;
 
@@ -17,6 +19,7 @@ export class CreateLocationDto {
     example: '0',
   })
   @IsNumber()
+  @Type(() => Number)
   @IsNotEmpty()
   longtitude: number;
 }
