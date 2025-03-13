@@ -4,6 +4,7 @@ import { RiderService } from './rider.service';
 import { LocationService } from '../location/location.service';
 import { CreateRiderDto } from './dtos/create-rider.dto';
 import { UpdateRiderDto } from './dtos/update-rider.dto';
+import { CreateLocationDto } from 'src/location/dtos/create-location.dto';
 
 describe('RiderController', () => {
   let controller: RiderController;
@@ -144,6 +145,33 @@ describe('RiderController', () => {
         id: RiderStub.id,
       });
       expect(result).toEqual(RiderStub);
+    });
+  });
+
+  describe('getRiderLocation', () => {
+    it('should return rider', async () => {
+      const result = await controller.getRiderLocation(String(RiderStub.id));
+
+      expect(service.getRiderWithLocations).toHaveBeenCalledWith(RiderStub.id);
+      expect(result).toEqual(RiderLocationStub);
+    });
+  });
+
+  describe('createRiderLocation', () => {
+    it('should create rider location', async () => {
+      const mockLocationDto: CreateLocationDto = {
+        ...LocationStub,
+      };
+      const result = await controller.createRiderLocation(
+        String(RiderStub.id),
+        mockLocationDto,
+      );
+
+      expect(locationService.createLocation).toHaveBeenCalledWith(
+        RiderStub.id,
+        mockLocationDto,
+      );
+      expect(result).toEqual(LocationStub);
     });
   });
 });
