@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Install dependencies') {
             agent {
-                docker {image 'node:20-alpine'}
+                docker { image 'node:20-alpine' }
             }
             steps {
                 sh '''
@@ -13,7 +13,7 @@ pipeline {
                     npm --version
                     rm -rf package-lock.json
                     rm -r node_modules
-                    npm ci
+                    npm install
                     ls -la
                 '''
             }
