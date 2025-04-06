@@ -24,7 +24,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'coverage/**', fingerprint: true
-            junit 'coverage/junit.xml'
+            junit 'coverage/cover.xml'
         }
         success {
             echo 'Build and tests completed successfully!'
