@@ -4,10 +4,11 @@ pipeline {
     stages {
         stage('Dependencies') {
             steps {
-                script {
-                    // Install dependencies
-                    sh 'npm install'
-                }
+                sh '''
+                    node --version
+                    npm --version
+                    npm install
+                '''
             }
         }
     }
