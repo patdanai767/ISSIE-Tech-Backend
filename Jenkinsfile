@@ -12,7 +12,9 @@ pipeline {
                     node --version
                     npm --version
                     rm -rf package-lock.json
-                    npm install
+                    mkdir -p ~/.npm
+                    npm config set cache ~/.npm
+                    npm install --unsafe-perm
                     ls -la
                 '''
             }
