@@ -1,9 +1,8 @@
 pipeline {
-
     agent any
 
     stages {
-        stage(('Build') {
+        stage('Build') {
             agent {
                 docker {
                     image 'node:20-alpine'
@@ -21,6 +20,6 @@ pipeline {
                     npm run test
                 '''
             }
-        })
+        }
     }
 }
