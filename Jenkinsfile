@@ -12,7 +12,6 @@ pipeline {
                     node --version
                     npm --version
                     rm -rf package-lock.json
-                    rm -r node_modules
                     npm install
                     ls -la
                 '''
