@@ -11,6 +11,8 @@ pipeline {
                     ls -la
                     node --version
                     npm --version
+                    rm -rf package-lock.json
+                    rm -r node_modules
                     npm ci
                     ls -la
                 '''
